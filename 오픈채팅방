@@ -1,0 +1,30 @@
+record = list(input().split("\""))
+name_list = {} #이름을 입력박는 dic
+result_list = [] #결과를 저장하는 list
+
+def change_name(name,id): #이름을 바꿔주는 함수
+    name_list[name] = id
+
+def get_name(list_): #record에서 이름을 얻어오는 함수
+    for i in list_:
+        if len(i) > 5:#record를 [," \n 이런것들이 다 같이 list 되다보니 이런 애들을 걸러낸것
+            if i[0] == 'E' or i[0] == 'C': #들어오거나 바꿀 때 그 이름을 dic에 저장함
+                temp_list = list(i.split())
+                change_name(temp_list[1],temp_list[2])
+
+def make_result(list_,name_list):
+    for i in list_:
+        if len(i) > 5:
+            if i[0] == 'E': #들어왔을 때 결과를 list에 저장
+                temp_list = list(i.split())
+                output = name_list[temp_list[1]]+"님이 들어왔습니다."
+                result_list.append(output)
+            elif i[0] == 'L': #나갔을 때 역시 list에 저장
+                temp_list = list(i.split())
+                output = name_list[temp_list[1]] + "님이 나갔습니다."
+                result_list.append(output)
+
+get_name(record)
+make_result(record,name_list)
+print(name_list)
+print(result_list)
